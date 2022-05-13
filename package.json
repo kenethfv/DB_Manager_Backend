@@ -1,0 +1,19 @@
+{
+  "name": "db_manager_backend",
+  "version": "1.0.0",
+  "description": "Backend for Project To DB Manager in BD II in UMG",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenethfv/DB_Manager_Backend.git"
+  },
+  "author": "Keneth Vasquez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenethfv/DB_Manager_Backend/issues"
+  },
+  "homepage": "https://github.com/kenethfv/DB_Manager_Backend#readme"
+}
