@@ -1,0 +1,10 @@
+# package directories
+node_modules
+jspm_packages
+dependencies_layer/nodejs/node_modules
+
+# Serverless directories
+.serverless
+
+#IDE
+.vscode

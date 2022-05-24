@@ -15,5 +15,19 @@
   "bugs": {
     "url": "https://github.com/kenethfv/DB_Manager_Backend/issues"
   },
-  "homepage": "https://github.com/kenethfv/DB_Manager_Backend#readme"
+  "homepage": "https://github.com/kenethfv/DB_Manager_Backend#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "serverless-deployment-bucket": "^1.6.0",
+    "serverless-offline": "^8.8.0",
+    "serverless-prune-plugin": "^2.0.1"
+  },
+  "dependencies": {
+    "@hapi/joi-date": "^2.0.1",
+    "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security",
+    "joi": "^17.6.0",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.19.2"
+  }
 }

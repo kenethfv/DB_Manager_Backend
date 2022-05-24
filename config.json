@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "ENV": "dev",
+    "NODE_ENV": "dev"
+  },
+  "prod": {
+    "ENV": "production",
+    "NODE_ENV": "production"
+  }
+}

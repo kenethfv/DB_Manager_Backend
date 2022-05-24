@@ -1,0 +1,253 @@
+service: survey-manager-api
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  profile: main_yalu
+  region: us-east-1
+  memorySize: 1024
+  timeout: 30
+  environment:
+    ENV: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.ENV}
+    NODE_ENV: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.NODE_ENV}
+    DB_HOST: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.DB_HOST}
+    DB_DATABASE: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.DB_DATABASE}
+    DB_USERNAME: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.DB_USERNAME}
+    DB_PASSWORD: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.DB_PASSWORD}
+    AWS_AUTH_REGION: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.AWS_AUTH_REGION}
+    AWS_AUTH_ACCESS_KEY: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.AWS_AUTH_ACCESS_KEY}
+    AWS_AUTH_SECRET_ACCESS_KEY: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.AWS_AUTH_SECRET_ACCESS_KEY}
+    S3_CSV_BUCKET: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.S3_CSV_BUCKET}
+  deploymentBucket:
+    name: serverless-yalu-deployments
+    serverSideEncryption: AES256
+functions:
+  getFlows:
+    handler: src/flow.getFlows
+    events:
+      - http:
+          path: /{slug}/flow
+          method: GET
+          cors: true
+  getFlowById:
+    handler: src/flow.getFlowById
+    events:
+      - http:
+          path: /{slug}/flow/{id}
+          method: GET
+          cors: true
+  getQuestionsByFlow:
+    handler: src/flow.getQuestionsByFlow
+    events:
+      - http:
+          path: /{slug}/flow/{id}/questions
+          method: GET
+          cors: true
+  insertFlow:
+    handler: src/flow.insertFlow
+    events:
+      - http:
+          path: /flow
+          method: POST
+          cors: true
+  updateFlow:
+    handler: src/flow.updateFlow
+    events:
+      - http:
+          path: /{slug}/flow/{id}
+          method: PUT
+          cors: true
+  softDeleteFlow:
+    handler: src/flow.softDeleteFlow
+    events:
+      - http:
+          path: /{slug}/flow/{id}
+          method: PATCH
+          cors: true
+  deleteFlow:
+    handler: src/flow.deleteFlow
+    events:
+      - http:
+          path: /{slug}/flow/{id}
+          method: DELETE
+          cors: true
+  getQuestions:
+    handler: src/question.getQuestions
+    events:
+      - http:
+          path: /{slug}/question
+          method: GET
+          cors: true
+  getQuestionById:
+    handler: src/question.getQuestionById
+    events:
+      - http:
+          path: /{slug}/question/{id}
+          method: GET
+          cors: true
+  getFlowByUser:
+    handler: src/flow.getFlowByUser
+    events:
+      - http:
+          path: /{slug}/flow/{id}/user/{userId}
+          method: POST
+          cors: true
+  insertQuestion:
+    handler: src/question.insertQuestion
+    events:
+      - http:
+          path: /question
+          method: POST
+          cors: true
+  updateQuestion:
+    handler: src/question.updateQuestion
+    events:
+      - http:
+          path: /{slug}/question/{id}
+          method: PUT
+          cors: true
+  softDeleteQuestion:
+    handler: src/question.softDeleteQuestion
+    events:
+      - http:
+          path: /{slug}/question/{id}
+          method: PATCH
+          cors: true
+  deleteQuestion:
+    handler: src/question.deleteQuestion
+    events:
+      - http:
+          path: /{slug}/question/{id}
+          method: DELETE
+          cors: true
+  insertResponse:
+    handler: src/response.insertResponse
+    events:
+      - http:
+          path: /{slug}/response
+          method: POST
+          cors: true
+  getResponses:
+    handler: src/response.getResponses
+    events:
+      - http:
+          path: /{slug}/response
+          method: GET
+          cors: true
+  getResponseById:
+    handler: src/response.getResponseById
+    events:
+      - http:
+          path: /{slug}/response/{id}
+          method: GET
+          cors: true
+  getResponseDetails:
+    handler: src/response.getResponseDetails
+    events:
+      - http:
+          path: /{slug}/responseDetails
+          method: GET
+          cors: true
+  getResponseDetailsById:
+    handler: src/response.getResponseDetailsById
+    events:
+      - http:
+          path: /{slug}/responseDetails/{id}
+          method: GET
+          cors: true
+  getResponsesData:
+    handler: src/response.getResponsesData
+    events:
+      - http:
+          path: /{slug}/responseData
+          method: GET
+          cors: true
+  getResponseByIdData:
+    handler: src/response.getResponseByIdData
+    events:
+      - http:
+          path: /{slug}/responseData/{id}
+          method: GET
+          cors: true
+  getResponseDetailsData:
+    handler: src/response.getResponseDetailsData
+    events:
+      - http:
+          path: /{slug}/detailData
+          method: GET
+          cors: true
+  getResponseDetailsByIdData:
+    handler: src/response.getResponseDetailsByIdData
+    events:
+      - http:
+          path: /{slug}/detailData/{id}
+          method: GET
+          cors: true
+  getResponsesDataCsv:
+    handler: src/response.getResponsesDataCsv
+    events:
+      - http:
+          path: /{slug}/responseData/csv
+          method: GET
+          cors: true
+  getResponseByIdDataCsv:
+    handler: src/response.getResponseByIdDataCsv
+    events:
+      - http:
+          path: /{slug}/responseData/{id}/csv
+          method: GET
+          cors: true
+  getResponseDetailsDataCsv:
+    handler: src/response.getResponseDetailsDataCsv
+    events:
+      - http:
+          path: /{slug}/detailData/csv
+          method: GET
+          cors: true
+  getResponseDetailsByIdDataCsv:
+    handler: src/response.getResponseDetailsByIdDataCsv
+    events:
+      - http:
+          path: /{slug}/detailData/{id}/csv
+          method: GET
+          cors: true
+  getDataReportResponses:
+    handler: src/data.getDataReportResponses
+    events:
+      - http:
+          path: /{slug}/dataReport
+          method: GET
+          cors: true
+  getDataReportResponsesDetail:
+    handler: src/data.getDataReportResponsesDetail
+    events:
+      - http:
+          path: /{slug}/dataReport/{id}
+          method: GET
+          cors: true
+  getDataReportDetail:
+    handler: src/data.getDataReportDetail
+    events:
+      - http:
+          path: /{slug}/dataReportDetail
+          method: GET
+          cors: true
+
+package:
+  exclude:
+    - dependencies_layer/**
+plugins:
+  - serverless-offline
+  - serverless-domain-manager
+  - serverless-prune-plugin
+  - serverless-deployment-bucket
+
+custom:
+  customDomain:
+    domainName: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.CUSTOM_DOMAIN}
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: false
+  prune:
+    automatic: true
+    number: 3

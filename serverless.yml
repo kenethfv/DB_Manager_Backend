@@ -1,0 +1,67 @@
+service: db-manager-api
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  profile: keneth_umg
+  region: us-east-1
+  memorySize: 1024
+  timeout: 30
+  environment:
+    ENV: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.ENV}
+    NODE_ENV: ${file(./config.json):${opt:stage, self:provider.stage, 'dev'}.NODE_ENV}
+functions:
+  login:
+    handler: src/service.login
+    events:
+      - http:
+          path: /login
+          method: POST
+          cors: true
+  querys:
+    handler: src/service.querys
+    events:
+      - http:
+          path: /querys
+          method: POST
+          cors: true
+  get-connections:
+    handler: src/service.getConnections
+    events:
+      - http:
+          path: /connections
+          method: GET
+          cors: true
+  save-connection:
+    handler: src/service.insertConnection
+    events:
+      - http:
+          path: /connections
+          method: POST
+          cors: true
+  get-db:
+    handler: src/service.getDatabases
+    events:
+      - http:
+          path: /database
+          method: POST
+          cors: true
+  get-tables:
+    handler: src/service.getTables
+    events:
+      - http:
+          path: /tables
+          method: POST
+          cors: true
+
+package:
+  exclude:
+    - dependencies_layer/**
+plugins:
+  - serverless-offline
+  - serverless-prune-plugin
+
+custom:
+  prune:
+    automatic: true
+    number: 3

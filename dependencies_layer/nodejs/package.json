@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@hapi/joi-date": "^2.0.1",
+    "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security",
+    "joi": "^17.6.0",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7",
+    "sequelize": "^6.19.2"
+  }
+}
