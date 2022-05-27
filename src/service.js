@@ -1,7 +1,7 @@
 const headers = require('./lib/headers');
 const getBody = require('./lib/getBody');
 const schema = require('./schemas/service.schema');
-const mysql = require('mysql')
+const mysql = require('mysql2')
 
 const login = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false
@@ -44,7 +44,10 @@ const login = (event, context, callback) => {
         response = {
           statusCode: 400,
           headers,
-          body: JSON.stringify({message: 'Connection Error'}),
+          body: JSON.stringify({
+            statusCode: 400,
+            message: 'Connection Error'
+          }),
         }
         callback(null, response)
       }
@@ -52,7 +55,10 @@ const login = (event, context, callback) => {
       response = {
         statusCode: 200,
         headers,
-        body: JSON.stringify({message: `Connection Success`}),
+        body: JSON.stringify({
+          statusCode: 200,
+          message: `Connection Success`
+        }),
       };
       callback(null, response)
     });
@@ -101,7 +107,10 @@ const querys = (event, context, callback) => {
         response = {
           statusCode: 400,
           headers,
-          body: JSON.stringify({message: 'Connection Error'}),
+          body: JSON.stringify({
+            statusCode: 400,
+            message: 'Connection Error'
+          }),
         }
         callback(null, response)
       }
@@ -111,7 +120,10 @@ const querys = (event, context, callback) => {
           response = {
             statusCode: 400,
             headers,
-            body: JSON.stringify({message: err}),
+            body: JSON.stringify({
+              statusCode: 400,
+              message: err
+            }),
           }
           callback(null, response)
         }
@@ -120,7 +132,9 @@ const querys = (event, context, callback) => {
         response = {
           statusCode: 200,
           headers,
-          body: JSON.stringify({data: result}),
+          body: JSON.stringify({
+            statusCode: 200,
+            data: result}),
         };
         callback(null, response)
       });
@@ -167,7 +181,9 @@ const getConnections = (event, context, callback) => {
         response = {
           statusCode: 400,
           headers,
-          body: JSON.stringify({message: 'Connection Error'}),
+          body: JSON.stringify({
+            statusCode: 400,
+            message: 'Connection Error'}),
         }
         callback(null, response)
       }
@@ -177,7 +193,8 @@ const getConnections = (event, context, callback) => {
           response = {
             statusCode: 400,
             headers,
-            body: JSON.stringify({message: err}),
+            body: JSON.stringify({statusCode: 400,
+              message: err}),
           }
           callback(null, response)
         }
@@ -186,7 +203,10 @@ const getConnections = (event, context, callback) => {
         response = {
           statusCode: 200,
           headers,
-          body: JSON.stringify({data: result}),
+          body: JSON.stringify({
+            statusCode: 200,
+            data: result
+          }),
         };
         callback(null, response)
       });
@@ -236,7 +256,9 @@ const insertConnection = (event, context, callback) => {
         response = {
           statusCode: 400,
           headers,
-          body: JSON.stringify({message: 'Connection Error'}),
+          body: JSON.stringify({
+            statusCode: 400,
+            message: 'Connection Error'}),
         }
         callback(null, response)
       }
@@ -246,7 +268,9 @@ const insertConnection = (event, context, callback) => {
           response = {
             statusCode: 400,
             headers,
-            body: JSON.stringify({message: err}),
+            body: JSON.stringify({
+              statusCode: 400,
+              message: err}),
           }
           callback(null, response)
         }
@@ -255,7 +279,9 @@ const insertConnection = (event, context, callback) => {
         response = {
           statusCode: 200,
           headers,
-          body: JSON.stringify({data: {message: 'Connection Save Successfully'}}),
+          body: JSON.stringify({
+            statusCode: 200,
+            data: {message: 'Connection Save Successfully'}}),
         };
         callback(null, response)
       });
@@ -306,7 +332,9 @@ const getDatabases = (event, context, callback) => {
         response = {
           statusCode: 400,
           headers,
-          body: JSON.stringify({message: 'Connection Error'}),
+          body: JSON.stringify({
+            statusCode: 400,
+            message: 'Connection Error'}),
         }
         callback(null, response)
       }
@@ -316,7 +344,10 @@ const getDatabases = (event, context, callback) => {
           response = {
             statusCode: 400,
             headers,
-            body: JSON.stringify({message: err}),
+            body: JSON.stringify({
+              statusCode: 400,
+              message: err
+            }),
           }
           callback(null, response)
         }
@@ -327,7 +358,9 @@ const getDatabases = (event, context, callback) => {
         response = {
           statusCode: 200,
           headers,
-          body: JSON.stringify({data: filterResult}),
+          body: JSON.stringify({
+            statusCode: 200,
+            data: filterResult}),
         };
         callback(null, response)
       });
@@ -380,7 +413,9 @@ const getTables = (event, context, callback) => {
         response = {
           statusCode: 400,
           headers,
-          body: JSON.stringify({message: 'Connection Error'}),
+          body: JSON.stringify({
+            statusCode: 400,
+            message: 'Connection Error'}),
         }
         callback(null, response)
       }
@@ -390,7 +425,9 @@ const getTables = (event, context, callback) => {
           response = {
             statusCode: 400,
             headers,
-            body: JSON.stringify({message: err}),
+            body: JSON.stringify({
+              statusCode: 400,
+              message: err}),
           }
           callback(null, response)
         }
@@ -405,7 +442,9 @@ const getTables = (event, context, callback) => {
         response = {
           statusCode: 200,
           headers,
-          body: JSON.stringify({data: tables}),
+          body: JSON.stringify({
+            statusCode: 200,
+            data: tables}),
         };
         callback(null, response)
       });
